@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block page_header %}
+    <!-- Content Header (内容header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <!-- <h1>Blank Page</h1> -->
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">资产管理</a></li>
+              <li class="breadcrumb-item active">机房管理</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block main_content %}
+    <!-- Main content -->
+
+    <section class="content">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="btn-group">
+                        <a href="{% url 'assets:idc-add' %}">
+                            <button type="button" class="btn btn-success">添加</button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table id="dataform" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th class="name">机房名称</th>
+                            <th class="ip">机房地址</th>
+                            <th class="asset_type">机房电话</th>
+                            <th class="group">客户经理</th>
+                            <th class="text-center">功能</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if idcs %}
+                            {% for idc in idcs %}
+                                <tr>
+                                    <td><a href="{% url 'assets:idc-edit' idc.id %}">{{ idc.name }}</a></td>
+                                    <td>{{ idc.address }}</td>
+                                    <td>{{ idc.tel }}</td>
+                                    <td>{{ idc.contact }}</td>
+                                    <td class="text-center" data-editable='false'>
+                                        <a class="edit btn btn-sm btn-info" name="edit" href="{% url 'assets:idc-edit' idc.id %}">编辑</a>
+                                        <a class="delete btn btn-sm btn-danger" name="delete"  href="{% url 'assets:idc-delete' idc.id %}">删除</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <p>No Item are available.</p>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}
+
+
+{% block self_css_js %}
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+
+    <script>
+        // 高亮显示菜单
+        window.onload=init;
+        function init() {
+            showhide();
+        }
+        function showhide() {
+            $('#asset').addClass('menu-open');
+            $('#idc-list').addClass('active')
+        }
+
+        // 初始化datatables
+        $(function () {
+            $('#dataform').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+
+    </script>
+    <script>
+        // 删除
+        $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }
+        });
+        $(document).ready(function () {
+            $(".delete").click(function () {
+                if(confirm('确定删除吗？')){
+                    $.post(this.href, function (data) {
+                        if (data.results = "ok") {
+                            window.location.reload();
+                        } else {
+                            alert("sth wrong");
+                        }
+                    });
+                }
+                return false;
+            })
+        })
+
+    </script>
+{% endblock %}
+
+
+
+
+
+

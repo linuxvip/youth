@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+    <!-- Content Header (内容header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <!-- <h1>Blank Page</h1> -->
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">用户组管理</a></li>
+              <li class="breadcrumb-item active">用户组列表</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+
+{% block main_content %}
+    <!-- Main content -->
+
+    <section class="content">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="btn-group">
+                        <a href="">
+                            <li class="btn btn-success" style="width: 60pt;font-size: medium" >
+                                <b>添加</b>
+                            </li>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table id="dataform" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>用户组</th>
+
+                            <th class="text-center">功能</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if groups %}
+                            {% for group in groups %}
+                                <tr>
+                                    <td>{{ group.name }}</td>
+                                    <td class="text-center" data-editable='false'>
+{#                                        <a class="edit btn btn-sm btn-info" name="edit" href="">编辑</a>#}
+                                        <a class="delete btn btn-sm btn-danger" name="delete"  href="">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <p>No Item are available.</p>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <div class="btn-group">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}
+
+
+{% block self_css_js %}
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+
+    <script>
+        // 高亮显示菜单
+        window.onload=init;
+        function init() {
+            showhide();
+        }
+        function showhide() {
+            $('#user').addClass('menu-open');
+            $('#user-group-list').addClass('active')
+        }
+
+        // 初始化datatables
+        $(function () {
+            $('#dataform').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+
+    </script>
+    <script>
+        // 删除
+        $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }
+        });
+        $(document).ready(function () {
+            $(".delete").click(function () {
+                if(confirm('确定删除吗？')){
+                    $.post(this.href, function (data) {
+                        if (data.results = "ok") {
+                            window.location.reload();
+                        } else {
+                            alert("sth wrong");
+                        }
+                    });
+                }
+                return false;
+            })
+        })
+
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+
