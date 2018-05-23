@@ -20,113 +20,24 @@ from django.contrib.auth.models import User, Group
 # Create your views here.
 
 
-# class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
-#     model = Assets
-#     context_object_name = "assets"
-#     template_name = 'assets/assets_list.html'
-#     permission_required = 'assets.can_view_asset'
-#     # raise_exception = True
-#     login_url = reverse_lazy('admin:login')
-#     paginate_by = 10
-#
-#     def get_queryset(self):
-#         asset_find = Assets.objects.all()
-#         # 获取前端get请求参数
-#         idc_name = self.request.GET.get('idc', '')
-#         group_name = self.request.GET.get('group', '')
-#         asset_type = self.request.GET.get('asset_type', '')
-#         status = self.request.GET.get('status', '')
-#         keyword = self.request.GET.get('keyword', '')
-#         # export = request.GET.get("export", '')
-#
-#         # 通过前端get请求参数，筛选
-#         if idc_name:
-#             asset_find = asset_find.filter(idc__name__contains=idc_name)
-#         if group_name:
-#             asset_find = asset_find.filter(group__name__contains=group_name)
-#         if asset_type:
-#             asset_find = asset_find.filter(asset_type__contains=asset_type)
-#         if status:
-#             asset_find = asset_find.filter(status__contains=status)
-#
-#         if keyword:
-#             asset_find = asset_find.filter(
-#             Q(hostname__icontains = keyword) |
-#             Q( ip__contains = keyword)
-#             )
-#         return asset_find
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(AssetListView, self).get_context_data(**kwargs)
-#         idc_info = Idc.objects.all()
-#         group_info = AssetGroups.objects.all()
-#
-#         # 返回前端需要的数据（机房信息、资产组信息、资产类型、资产状态、搜索关键字）
-#         context['idc_info'] = idc_info
-#         context['group_info'] = group_info
-#         context['asset_type'] = ASSET_TYPE
-#         context['asset_status'] = ASSET_STATUS
-#
-#         # 获取前端传过来的数据，然后在返回去
-#         keyword = self.request.GET.get('keyword', "")
-#         idc_name = self.request.GET.get('idc', "")
-#         group_name = self.request.GET.get('group',"")
-#         assettype = self.request.GET.get('asset_type',"")
-#         status = self.request.GET.get('status',"")
-#         print self.request.user
-#
-#
-#         context['keyword'] = keyword
-#         context['idc_name'] = idc_name
-#         context['group_name'] = group_name
-#         context['assettype'] = assettype
-#         context['status'] = status
-#         return context
-
-
-class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
-    # context_object_name = "assets"
+class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+    model = Assets
+    context_object_name = "assets"
     template_name = 'assets/assets_list.html'
     permission_required = 'assets.can_view_asset'
-    raise_exception = True
-    # login_url = reverse_lazy('user:login')
-    paginate_by = 2
+    # raise_exception = True
+    login_url = reverse_lazy('user:login')
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        # 获取当前登录用户user
-        current_user = self.request.user
-        # print current_user
-
-        # 如果是superuser 返回全部资产信息
-        if current_user.is_superuser:
-            asset_find = Assets.objects.all()
-
-        # 如果非superuser 查找对应权限 返回具有权限的资产信息
-        else:
-            # 通过user获取所在组，用户可能属于多个组，不能用get
-            current_group = Group.objects.filter(user=current_user)
-            # print current_group
-            # 获取用户组的 资产组权限, 可能是多个
-            user_group_permission = AssetPermission.objects.filter(group__in=current_group)
-
-            # 定义资产组列表
-            group_list = []
-            for i in user_group_permission:
-                for assetgroup in i.assetsgroup.all():
-                    group_list.append(assetgroup)
-            asset_find = Assets.objects.filter(group__in=group_list)
-
-        # 获取机房信息
-        idc_info = Idc.objects.all()
-        # 获取主机组信息
-        group_info = AssetGroup.objects.all()
-
+    def get_queryset(self):
+        asset_find = Assets.objects.all()
         # 获取前端get请求参数
         idc_name = self.request.GET.get('idc', '')
         group_name = self.request.GET.get('group', '')
         asset_type = self.request.GET.get('asset_type', '')
         status = self.request.GET.get('status', '')
         keyword = self.request.GET.get('keyword', '')
+        # export = request.GET.get("export", '')
 
         # 通过前端get请求参数，筛选
         if idc_name:
@@ -140,9 +51,25 @@ class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
 
         if keyword:
             asset_find = asset_find.filter(
-            Q(hostname__icontains=keyword) |
-            Q( ip__contains=keyword)
+            Q(hostname__icontains = keyword) |
+            Q( ip__contains = keyword)
             )
+        return asset_find
+
+    def get_context_data(self, **kwargs):
+        context = super(AssetListView, self).get_context_data(**kwargs)
+
+        # 获取机房信息
+        idc_info = Idc.objects.all()
+        # 获取主机组信息
+        group_info = AssetGroup.objects.all()
+
+        # 获取前端get请求参数
+        idc_name = self.request.GET.get('idc', '')
+        group_name = self.request.GET.get('group', '')
+        asset_type = self.request.GET.get('asset_type', '')
+        status = self.request.GET.get('status', '')
+        keyword = self.request.GET.get('keyword', '')
 
         # 返回前端需要的数据（机房信息、资产组信息、资产类型、资产状态、搜索关键字、匹配特定权限的具体资产信息）
         context = {
@@ -156,11 +83,89 @@ class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
             'group_info': group_info,
             'asset_type': ASSET_TYPE,
             'asset_status': ASSET_STATUS,
-            'assets': asset_find
         }
 
         kwargs.update(context)
         return super(AssetListView, self).get_context_data(**kwargs)
+
+# 按照资产组权限 进行展示，还没完善，代码先留在这里
+# class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
+#     # context_object_name = "assets"
+#     template_name = 'assets/assets_list.html'
+#     permission_required = 'assets.can_view_asset'
+#     raise_exception = True
+#     # login_url = reverse_lazy('user:login')
+#     paginate_by = 2
+#
+#     def get_context_data(self, **kwargs):
+#         # 获取当前登录用户user
+#         current_user = self.request.user
+#         # print current_user
+#
+#         # 如果是superuser 返回全部资产信息
+#         if current_user.is_superuser:
+#             asset_find = Assets.objects.all()
+#
+#         # 如果非superuser 查找对应权限 返回具有权限的资产信息
+#         else:
+#             # 通过user获取所在组，用户可能属于多个组，不能用get
+#             current_group = Group.objects.filter(user=current_user)
+#             # print current_group
+#             # 获取用户组的 资产组权限, 可能是多个
+#             user_group_permission = AssetPermission.objects.filter(group__in=current_group)
+#
+#             # 定义资产组列表
+#             group_list = []
+#             for i in user_group_permission:
+#                 for assetgroup in i.assetsgroup.all():
+#                     group_list.append(assetgroup)
+#             asset_find = Assets.objects.filter(group__in=group_list)
+#
+#         # 获取机房信息
+#         idc_info = Idc.objects.all()
+#         # 获取主机组信息
+#         group_info = AssetGroup.objects.all()
+#
+#         # 获取前端get请求参数
+#         idc_name = self.request.GET.get('idc', '')
+#         group_name = self.request.GET.get('group', '')
+#         asset_type = self.request.GET.get('asset_type', '')
+#         status = self.request.GET.get('status', '')
+#         keyword = self.request.GET.get('keyword', '')
+#
+#         # 通过前端get请求参数，筛选
+#         if idc_name:
+#             asset_find = asset_find.filter(idc__name__contains=idc_name)
+#         if group_name:
+#             asset_find = asset_find.filter(group__name__contains=group_name)
+#         if asset_type:
+#             asset_find = asset_find.filter(asset_type__contains=asset_type)
+#         if status:
+#             asset_find = asset_find.filter(status__contains=status)
+#
+#         if keyword:
+#             asset_find = asset_find.filter(
+#             Q(hostname__icontains=keyword) |
+#             Q( ip__contains=keyword)
+#             )
+#
+#         # 返回前端需要的数据（机房信息、资产组信息、资产类型、资产状态、搜索关键字、匹配特定权限的具体资产信息）
+#         context = {
+#             'idc_name': idc_name,
+#             'group_name': group_name,
+#             'assettype': asset_type,
+#             'status': status,
+#             'keyword': keyword,
+#
+#             'idc_info': idc_info,
+#             'group_info': group_info,
+#             'asset_type': ASSET_TYPE,
+#             'asset_status': ASSET_STATUS,
+#             'assets': asset_find
+#         }
+#
+#         kwargs.update(context)
+#         return super(AssetListView, self).get_context_data(**kwargs)
 
 
 class AssetAddView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
