@@ -58,10 +58,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "users.UserProfile"
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # django默认的backend
-    'guardian.backends.ObjectPermissionBackend',
-)
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend', # django默认的backend
+#     'guardian.backends.ObjectPermissionBackend',
+# )
 
 # 支持对匿名用户AnoymousUser的Object级别的权限控制
 ANONYMOUS_USER_ID=-1
