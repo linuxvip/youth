@@ -27,32 +27,32 @@ class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     permission_required = 'assets.can_view_asset'
     # raise_exception = True
     login_url = reverse_lazy('user:login')
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         asset_find = Assets.objects.all()
         # 获取前端get请求参数
-        idc_name = self.request.GET.get('idc', '')
-        group_name = self.request.GET.get('group', '')
-        asset_type = self.request.GET.get('asset_type', '')
-        status = self.request.GET.get('status', '')
-        keyword = self.request.GET.get('keyword', '')
+        self.idc_name = self.request.GET.get('idc', '')
+        self.group_name = self.request.GET.get('group', '')
+        self.asset_type = self.request.GET.get('asset_type', '')
+        self.status = self.request.GET.get('status', '')
+        self.keyword = self.request.GET.get('keyword', '')
         # export = request.GET.get("export", '')
 
         # 通过前端get请求参数，筛选
-        if idc_name:
-            asset_find = asset_find.filter(idc__name__contains=idc_name)
-        if group_name:
-            asset_find = asset_find.filter(group__name__contains=group_name)
-        if asset_type:
-            asset_find = asset_find.filter(asset_type__contains=asset_type)
-        if status:
-            asset_find = asset_find.filter(status__contains=status)
+        if self.idc_name:
+            asset_find = asset_find.filter(idc__name__contains=self.idc_name)
+        if self.group_name:
+            asset_find = asset_find.filter(group__name__contains=self.group_name)
+        if self.asset_type:
+            asset_find = asset_find.filter(asset_type__contains=self.asset_type)
+        if self.status:
+            asset_find = asset_find.filter(status__contains=self.status)
 
-        if keyword:
+        if self.keyword:
             asset_find = asset_find.filter(
-            Q(hostname__icontains = keyword) |
-            Q( ip__contains = keyword)
+            Q(hostname__icontains = self.keyword) |
+            Q( ip__contains = self.keyword)
             )
         return asset_find
 
@@ -64,20 +64,13 @@ class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
         # 获取主机组信息
         group_info = AssetGroup.objects.all()
 
-        # 获取前端get请求参数
-        idc_name = self.request.GET.get('idc', '')
-        group_name = self.request.GET.get('group', '')
-        asset_type = self.request.GET.get('asset_type', '')
-        status = self.request.GET.get('status', '')
-        keyword = self.request.GET.get('keyword', '')
-
         # 返回前端需要的数据（机房信息、资产组信息、资产类型、资产状态、搜索关键字、匹配特定权限的具体资产信息）
         context = {
-            'idc_name': idc_name,
-            'group_name': group_name,
-            'assettype': asset_type,
-            'status': status,
-            'keyword': keyword,
+            'idc_name': self.idc_name,
+            'group_name': self.group_name,
+            'assettype': self.asset_type,
+            'status': self.status,
+            'keyword': self.keyword,
 
             'idc_info': idc_info,
             'group_info': group_info,
