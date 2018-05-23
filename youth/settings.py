@@ -34,7 +34,7 @@ SECRET_KEY = 'zl-zy-34!v7&o+8zwe&zf%3x3!$-8d*8rs*r7-oy*w8ib4o^t5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -113,8 +113,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cmdb',
         'USER': 'root',
-        'PASSWORD': 'D3v0ps20!E',
-        'HOST': '192.168.214.60',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
