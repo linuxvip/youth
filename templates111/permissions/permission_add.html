@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+    <!-- Content Header (内容header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <!-- <h1>Blank Page</h1> -->
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">权限管理</a></li>
+              <li class="breadcrumb-item active">权限添加</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="card">
+            <div class="card-header with-border">
+                <h3 class="card-title">添加权限</h3>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'permission:permission-add' %}" method="post">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <input type="submit" class="btn btn-primary" style="width: 60pt" value="提交">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'permission:permission-list' %}">
+                        <li style="width: 60pt" class="btn btn-primary" value="">返回</li>
+                    </a><br>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <i class="fa fa-info-circle"></i> 请勿重复添加条目
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block self_css_js %}
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/static/plugins/bootstrap-duallistbox/jquery.bootstrap-duallistbox.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap-duallistbox/bootstrap-duallistbox.css">
+
+
+    <script>
+        window.onload=init;
+        function init() {
+            showhide();
+        }
+        function showhide() {
+            $('#user').addClass('menu-open');
+            $('#permission-list').addClass('active')
+        }
+    </script>
+    <script>
+        var demo1 = $('select[name="assetsgroup"]').bootstrapDualListbox({
+              nonSelectedListLabel: '可选择资产组',
+              selectedListLabel: '已选择资产组',
+              preserveSelectionOnMove: 'moved',
+              moveOnSelect: false
+        });
+        var demo2 = $('select[name="perm"]').bootstrapDualListbox({
+              nonSelectedListLabel: '可选择权限',
+              selectedListLabel: '已选择权限',
+              preserveSelectionOnMove: 'moved',
+              moveOnSelect: false
+        });
+    </script>
+
+
+{% endblock %}

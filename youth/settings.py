@@ -34,7 +34,7 @@ SECRET_KEY = 'zl-zy-34!v7&o+8zwe&zf%3x3!$-8d*8rs*r7-oy*w8ib4o^t5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -58,10 +58,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "users.UserProfile"
 
-#AUTHENTICATION_BACKENDS = (
-#    'django.contrib.auth.backends.ModelBackend', # django默认的backend
-#    'guardian.backends.ObjectPermissionBackend',
-#)
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # django默认的backend
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 # 支持对匿名用户AnoymousUser的Object级别的权限控制
 ANONYMOUS_USER_ID=-1
@@ -113,8 +113,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cmdb',
         'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'D3v0ps20!E',
+        'HOST': '192.168.214.60',
         'PORT': '3306',
     }
 }

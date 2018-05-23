@@ -1,179 +1,154 @@
 {% load static %}
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{% url 'navi:navi-index' %}" class="brand-link">
-      <img src="{% static 'img/AdminLTELogo.png' %}"
-           alt="AdminLTE Logo"
-           class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">CMDB资产管理系统</span>
-    </a>
+  <!-- =============================================== -->
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="./img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+   <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{% static 'img/user7-128x128.jpg' %}" class="img-circle" alt="User Image">
         </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+        <div class="pull-left info">
+          <p>
+              {% if request.user %}
+                  {{ request.user }}
+              {% endif %}
+          </p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
-      </div> -->
+      </div>
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li id="navi" class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-dashboard"></i>
-              <p>
-                站点导航
-                <i class="right fa fa-angle-left"></i>
-              </p>
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">Hot</small>
+            </span>
+          </a>
+        </li>
+
+
+
+          <li id="navi" class="treeview">
+          <a href="#">
+            <i class="fa fa-share"></i> <span>导航</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="navi-list"><a href="{% url 'navi:navi-index' %}"><i class="fa fa-circle-o"></i>导航列表</a></li>
+            <li id="navi-manage"><a href="{% url 'navi:navi-manage' %}"><i class="fa fa-circle-o"></i>导航管理</a></li>
+          </ul>
+        </li>
+
+        <li id="asset" class="treeview">
+          <a href="#">
+            <i class="fa fa-server"></i> <span>资产</span>
+
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="asset-list">
+                <a href="{% url 'assets:asset-list' %}"><i class="fa fa-circle-o"></i> 资产管理
+                    <span class="pull-right-container">
+                        <small class="label pull-right bg-green">400</small>
+                    </span>
+                </a>
+              </li>
+            <li id="asset-group-list"><a href="{% url 'assets:asset-group-list' %}"><i class="fa fa-circle-o"></i>资产组管理
+                <span class="pull-right-container">
+                    <small class="label pull-right bg-yellow">5</small>
+                </span>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a id="navi-list" href="{% url 'navi:navi-index' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>站点列表</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a id="navi-manage" href="{% url 'navi:navi-manage' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>站点管理</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-
-
-          <li id="asset" class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-table"></i>
-              <p>
-                资产管理
-                <i class="fa fa-angle-left right"></i>
-                  <span class="right badge badge-danger">New</span>
-
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a id="host-list" href="{% url 'assets:asset-list' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>资产管理</p>
-                </a>
-              </li>
-                <li class="nav-item">
-                <a id="group-list" href="{% url 'assets:asset-group-list' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>资产组管理</p>
-                </a>
-              </li>
-                <li class="nav-item">
-                <a id="idc-list" href="{% url 'assets:idc-list' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>机房管理</p>
-                </a>
+            </li>
+              <li id="idc-list"><a href="{% url 'assets:idc-list' %}"><i class="fa fa-circle-o"></i>机房管理
+                <span class="pull-right-container">
+                    <small class="label pull-right bg-red">2</small>
+                </span>
+              </a>
               </li>
 
-            </ul>
-          </li>
+          </ul>
+        </li>
 
+        <li id="user" class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>用户</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="user-list"><a href="{% url 'user:user-list' %}"><i class="fa fa-circle-o"></i>用户管理</a></li>
+            <li id="group-list"><a href="{% url 'user:group-list' %}"><i class="fa fa-circle-o"></i>用户组管理</a></li>
+{#              <li id="permission-list"><a href="{% url 'navi:navi-manage' %}"><i class="fa fa-circle-o"></i>权限管理</a></li>#}
 
+          </ul>
+        </li>
 
+          <li id="permission" class="treeview">
+          <a href="#">
+            <i class="fa fa-shield"></i> <span>权限</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+              <li id="permission-list"><a href="{% url 'navi:navi-manage' %}"><i class="fa fa-circle-o"></i>用户组基础权限</a></li>
+              <li id="permission-list"><a href="{% url 'navi:navi-manage' %}"><i class="fa fa-circle-o"></i>资产组授权</a></li>
+          </ul>
+        </li>
 
-          <li id="user" class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-users"></i>
-              <p>
-                用户管理
-                <i class="fa fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a id="user-list" href="{% url 'user:user-list' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>用户管理</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a id="user-group-list" href="{% url 'user:group-list' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>用户组管理</p>
-                </a>
-              </li>
-                <li class="nav-item">
-                <a id="permission-list" href="{% url 'permission:permission-list' %}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>权限管理</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+{#        <li class="treeview">#}
+{#          <a href="#">#}
+{#            <i class="fa fa-share"></i> <span>Multilevel</span>#}
+{#            <span class="pull-right-container">#}
+{#              <i class="fa fa-angle-left pull-right"></i>#}
+{#            </span>#}
+{#          </a>#}
+{#          <ul class="treeview-menu">#}
+{#            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>#}
+{#            <li class="treeview">#}
+{#              <a href="#"><i class="fa fa-circle-o"></i> Level One#}
+{#                <span class="pull-right-container">#}
+{#                  <i class="fa fa-angle-left pull-right"></i>#}
+{#                </span>#}
+{#              </a>#}
+{#              <ul class="treeview-menu">#}
+{#                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>#}
+{#                <li class="treeview">#}
+{#                  <a href="#"><i class="fa fa-circle-o"></i> Level Two#}
+{#                    <span class="pull-right-container">#}
+{#                      <i class="fa fa-angle-left pull-right"></i>#}
+{#                    </span>#}
+{#                  </a>#}
+{#                  <ul class="treeview-menu">#}
+{#                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>#}
+{#                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>#}
+{#                  </ul>#}
+{#                </li>#}
+{#              </ul>#}
+{#            </li>#}
+{#            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>#}
+{#          </ul>#}
+{#        </li>#}
 
-          <!-- 可以使用下面的 li 来隔开菜单 -->
-          <!-- <li class="nav-header">EXAMPLES</li> -->
-
-{#          <li class="nav-item">#}
-{#            <a href="../calendar.html" class="nav-link">#}
-{#              <i class="nav-icon fa fa-calendar"></i>#}
-{#              <p>#}
-{#                Calendar#}
-{#                <span class="badge badge-info right">2</span>#}
-{#              </p>#}
-{#            </a>#}
-{#          </li>#}
-{##}
-{#          <li class="nav-item has-treeview">#}
-{#            <a href="#" class="nav-link">#}
-{#              <i class="nav-icon fa fa-plus-square-o"></i>#}
-{#              <p>#}
-{#                Extras#}
-{#                <i class="fa fa-angle-left right"></i>#}
-{#              </p>#}
-{#            </a>#}
-{#            <ul class="nav nav-treeview">#}
-{##}
-{##}
-{#              <li class="nav-item">#}
-{#                <a href="../examples/blank.html" class="nav-link">#}
-{#                  <i class="fa fa-circle-o nav-icon"></i>#}
-{#                  <p>Blank Page</p>#}
-{#                </a>#}
-{#              </li>#}
-{#              <li class="nav-item">#}
-{#                <a href="../../starter.html" class="nav-link">#}
-{#                  <i class="fa fa-circle-o nav-icon"></i>#}
-{#                  <p>Starter Page</p>#}
-{#                </a>#}
-{#              </li>#}
-{#            </ul>#}
-{#          </li>#}
-
-          <li class="nav-header">Documentation</li>
-            <li class="nav-item">
-            <a href="/api" class="nav-link" target="_blank">
-              <i class="nav-icon fa fa-file"></i>
-              <p>Api WebUI</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/docs" class="nav-link">
-              <i class="nav-icon fa fa-file"></i>
-              <p>Api接口文档</p>
-            </a>
-          </li>
-
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
+        <li class="header">api视图与文档</li>
+        <li><a href="/api"><i class="fa fa-circle-o text-red"></i> <span>API UI</span></a></li>
+        <li><a href="/docs"><i class="fa fa-circle-o text-yellow"></i> <span>Documentation</span></a></li>
+{#        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>#}
+      </ul>
+    </section>
     <!-- /.sidebar -->
   </aside>
+
+  <!-- =============================================== -->

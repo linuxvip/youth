@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{% block page_header %}
+    <!-- Content Header (内容header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <!-- <h1>Blank Page</h1> -->
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">导航管理</a></li>
+              <li class="breadcrumb-item active">导航添加</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"> 添加导航条目 </h3>
+
+                <div class="card-body">
+                    <form action="{% url 'navi:navi-add' %}" method="post">
+
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <div class="form-group has-error" >
+                        {% else %}
+                            <div class="form-group">
+                        {% endif %}
+
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <span class="label label-danger">{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                        <input type="submit" class="btn btn-primary" style="width: 60pt" value="提交">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'navi:navi-manage' %}"><li style="width: 60pt" class="btn btn-primary" value="">返回</li></a><br>
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <i class="fa fa-info-circle"></i> 请勿重复添加条目
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+{% block self_css_js %}
+    <script>
+        window.onload=init;
+        function init() {
+            showhide();
+        }
+        function showhide() {
+            $('#navi').addClass('menu-open');
+            $('#navi-manage').addClass('active')
+        }
+    </script>
+{% endblock %}

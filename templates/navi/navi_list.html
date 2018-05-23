@@ -2,39 +2,35 @@
 
 
 {% block page_header %}
-    <!-- Content Header (内容header) -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <!-- <h1>Blank Page</h1> -->
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">导航管理</a></li>
-              <li class="breadcrumb-item active">导航列表</li>
-            </ol>
-          </div>
-        </div>
-      </div>
+        <h1>
+            导航管理
+            <small>导航管理（增删改查）</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">导航</a></li>
+            <li class="active">导航列表</li>
+        </ol>
     </section>
 {% endblock %}
 
 
 {% block main_content %}
     <section class="content">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title"> 导航管理 </h3>
 
-                <!-- // card 按钮
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fa fa-times"></i></button>
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">导航管理</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
                 </div>
-                -->
 
                 {% if not navis %}
                     <a href="{% url 'navi:navi-add' %}">
@@ -45,17 +41,16 @@
                     </a>
                 {% endif %}
 
-                <h4 class="mb-2 mt-4"></h4>
                 <div class="row">
                     {% if navis %}
                         {% for navi in navis %}
                             <div class="col-md-3">
                                 <a href="{{ navi.url }}" target="_blank">
-                                    <div class="card card-success card-outline">
-                                        <div class="card-header">
-                                            <h3 class="card-title">{{ navi.name }}</h3>
+                                    <div class="box card-success box-outline">
+                                        <div class="box-header">
+                                            <h3 class="box-title">{{ navi.name }}</h3>
                                         </div>
-                                        <div class="card-body">{{ navi.url }}</div>
+                                        <div class="box-body">{{ navi.url }}</div>
                                     </div>
                                 </a>
                             </div>
@@ -63,14 +58,9 @@
                     {% endif %}
                 </div>
             </div>
-            <!--
-            <div class="card-footer">
-              Footer
-            </div>
-            -->
-        </div>
     </section>
 {% endblock %}
+
 
 {% block self_css_js %}
 <script>
@@ -79,7 +69,7 @@
         showhide();
     }
     function showhide() {
-        $('#navi').addClass('menu-open');
+        $('#navi').addClass('active menu-open');
         $('#navi-list').addClass('active')
     }
 </script>

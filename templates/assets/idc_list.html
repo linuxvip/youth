@@ -1,24 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
 {% block page_header %}
-    <!-- Content Header (内容header) -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <!-- <h1>Blank Page</h1> -->
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">资产管理</a></li>
-              <li class="breadcrumb-item active">机房管理</li>
-            </ol>
-          </div>
-        </div>
-      </div>
+        <h1>
+            机房管理
+            <small>机房管理（增删改查）</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">资产</a></li>
+            <li class="active">机房列表</li>
+        </ol>
     </section>
 {% endblock %}
 
@@ -28,16 +21,22 @@
     <section class="content">
         <form action="" method="post">
             {% csrf_token %}
-            <div class="card">
-                <div class="card-header">
+            <div class="box">
+                <div class="box-header">
                     <div class="btn-group">
                         <a href="{% url 'assets:idc-add' %}">
                             <button type="button" class="btn btn-success">添加</button>
                         </a>
                     </div>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
                 </div>
 
-                <div class="card-body">
+                <div class="box-body">
                     <table id="dataform" class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -78,8 +77,8 @@
 
 {% block self_css_js %}
     <!-- DataTables -->
-    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
 
 
     <script>
@@ -89,7 +88,7 @@
             showhide();
         }
         function showhide() {
-            $('#asset').addClass('menu-open');
+            $('#asset').addClass('active menu-open');
             $('#idc-list').addClass('active')
         }
 

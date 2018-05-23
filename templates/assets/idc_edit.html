@@ -2,38 +2,33 @@
 
 
 {% block page_header %}
-    <!-- Content Header (内容header) -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <!-- <h1>Blank Page</h1> -->
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">机房管理</a></li>
-              <li class="breadcrumb-item active">机房编辑</li>
-            </ol>
-          </div>
-        </div>
-      </div>
+        <h1>
+            机房管理
+            <small>机房管理（增删改查）</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">机房管理</a></li>
+            <li class="active">机房编辑</li>
+        </ol>
     </section>
 {% endblock %}
 
 {% block main_content %}
     <!-- Main content -->
     <section class="content">
-        <div class="card">
-            <div class="card-header with-border">
-                <h3 class="card-title">编辑机房</h3>
-                <div class="card-tools pull-right">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">编辑机房</h3>
+                <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                         <i class="fa fa-times"></i></button>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="box-body">
                 <form action="" method="post">
 {#                    {% csrf_token %}#}
 {#                    {{ form.as_p }}#}
@@ -74,7 +69,7 @@
             showhide();
         }
         function showhide() {
-            $('#asset').addClass('menu-open');
+            $('#asset').addClass('active menu-open');
             $('#idc-list').addClass('active')
         }
     </script>

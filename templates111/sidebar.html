@@ -1,0 +1,179 @@
+{% load static %}
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'navi:navi-index' %}" class="brand-link">
+      <img src="{% static 'img/AdminLTELogo.png' %}"
+           alt="AdminLTE Logo"
+           class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">CMDB资产管理系统</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="./img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Alexander Pierce</a>
+        </div>
+      </div> -->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li id="navi" class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-dashboard"></i>
+              <p>
+                站点导航
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a id="navi-list" href="{% url 'navi:navi-index' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>站点列表</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a id="navi-manage" href="{% url 'navi:navi-manage' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>站点管理</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+          <li id="asset" class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-table"></i>
+              <p>
+                资产管理
+                <i class="fa fa-angle-left right"></i>
+                  <span class="right badge badge-danger">New</span>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a id="host-list" href="{% url 'assets:asset-list' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>资产管理</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a id="group-list" href="{% url 'assets:asset-group-list' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>资产组管理</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a id="idc-list" href="{% url 'assets:idc-list' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>机房管理</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+
+          <li id="user" class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                用户管理
+                <i class="fa fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a id="user-list" href="{% url 'user:user-list' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>用户管理</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a id="user-group-list" href="{% url 'user:group-list' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>用户组管理</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a id="permission-list" href="{% url 'permission:permission-list' %}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>权限管理</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 可以使用下面的 li 来隔开菜单 -->
+          <!-- <li class="nav-header">EXAMPLES</li> -->
+
+{#          <li class="nav-item">#}
+{#            <a href="../calendar.html" class="nav-link">#}
+{#              <i class="nav-icon fa fa-calendar"></i>#}
+{#              <p>#}
+{#                Calendar#}
+{#                <span class="badge badge-info right">2</span>#}
+{#              </p>#}
+{#            </a>#}
+{#          </li>#}
+{##}
+{#          <li class="nav-item has-treeview">#}
+{#            <a href="#" class="nav-link">#}
+{#              <i class="nav-icon fa fa-plus-square-o"></i>#}
+{#              <p>#}
+{#                Extras#}
+{#                <i class="fa fa-angle-left right"></i>#}
+{#              </p>#}
+{#            </a>#}
+{#            <ul class="nav nav-treeview">#}
+{##}
+{##}
+{#              <li class="nav-item">#}
+{#                <a href="../examples/blank.html" class="nav-link">#}
+{#                  <i class="fa fa-circle-o nav-icon"></i>#}
+{#                  <p>Blank Page</p>#}
+{#                </a>#}
+{#              </li>#}
+{#              <li class="nav-item">#}
+{#                <a href="../../starter.html" class="nav-link">#}
+{#                  <i class="fa fa-circle-o nav-icon"></i>#}
+{#                  <p>Starter Page</p>#}
+{#                </a>#}
+{#              </li>#}
+{#            </ul>#}
+{#          </li>#}
+
+          <li class="nav-header">Documentation</li>
+            <li class="nav-item">
+            <a href="/api" class="nav-link" target="_blank">
+              <i class="nav-icon fa fa-file"></i>
+              <p>Api WebUI</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/docs" class="nav-link">
+              <i class="nav-icon fa fa-file"></i>
+              <p>Api接口文档</p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

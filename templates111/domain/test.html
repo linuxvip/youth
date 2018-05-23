@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+    <!-- Content Header (内容header) -->
+    <section class="content-header">
+        <h1>
+            域名管理
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">域名管理</a></li>
+            <li class="active">域名管理</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="box">
+                <div class="box-header">
+                    <div class="btn-group">
+                        <a href="{% url 'domain:domain-add' %}">
+                            <li class="btn btn-success" style="width: 60pt;font-size: medium" >
+                                <b>添加</b>
+                            </li>
+                        </a>
+                    </div>
+                </div>
+{{ all_domains }}
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="dataform" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>域名</th>
+                            <th>IP</th>
+                            <th>环境</th>
+                            <th>添加位置</th>
+                            <th>用途</th>
+                            <th>申请人</th>
+                            <th class="text-center">功能</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}
+
+{% block custom_foot_js %}
+<!-- DataTables -->
+    <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/bootbox/bootbox.js' %}"></script>
+    <script>
+        window.onload=init;
+        function init() {
+            showhide();
+        }
+        function showhide() {
+            $('#domain').addClass('active menu-open')
+            $('#domain-list').addClass('active')
+        }
+
+        $(document).ready(function() {
+            var table = $('#dataform').DataTable( {
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/domain/test/",
+                    "type": "get"
+                },
+                "columns": [
+                    {"data": "id"},
+                    {"data": "song"},
+                    {"data": "singer"},
+                    {"data": "last_modify_date"},
+                    {"data": "created"},
+                    {
+                        "data": null,
+                        "defaultContent": '<button type="button" class="btn btn-info">Edit</button>' + '&nbsp;&nbsp' +
+                        '<button type="button" class="btn btn-danger">Delete</button>'
+                    }
+                ]
+            });
+
+            $(".checkBtn").click(function(){
+                  var checkValue = $(this).val();
+                  if (this.checked){
+                      $("." + checkValue).fadeIn();
+                  } else {
+                      $("." + checkValue).fadeOut();
+                  }
+              });
+        } );
+
+    </script>
+    <script>
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        $(document).ready(function () {
+            $(".delete").click(function () {
+                if(confirm('确定删除吗？')){
+                    $.post(this.href, function (data) {
+                        if (data.results == "ok") {
+                            window.location.reload();
+                        } else {
+                            alert("sth wrong");
+                        }
+                    });
+                }
+                return false;
+            })
+        })
+
+    </script>
+{% endblock %}
+
+
+
+
+

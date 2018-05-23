@@ -90,7 +90,7 @@ class AssetListView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     permission_required = 'assets.can_view_asset'
     raise_exception = True
     # login_url = reverse_lazy('user:login')
-    paginate_by = 10
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         # 获取当前登录用户user

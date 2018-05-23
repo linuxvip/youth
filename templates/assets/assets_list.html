@@ -4,21 +4,16 @@
 
 
 {% block page_header %}
-    <!-- Content Header (内容header) -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <!-- <h1>Blank Page</h1> -->
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">资产管理</a></li>
-              <li class="breadcrumb-item active">主机资产管理</li>
-            </ol>
-          </div>
-        </div>
-      </div>
+        <h1>
+            机房管理
+            <small>资产管理（增删改查）</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">资产</a></li>
+            <li class="active">资产列表</li>
+        </ol>
     </section>
 {% endblock %}
 
@@ -28,8 +23,8 @@
     <section class="content">
         <form action="" method="post" id="assetfrom">
 {#            {% csrf_token %}#}
-            <div class="card">
-                <div class="card-header">
+            <div class="box">
+                <div class="box-header">
                     <div class="col-sm-1" style="float: left">
                         <a href="{% url 'assets:asset-add' %}"><li class="btn btn-success" ><b>添加设备</b></li></a>
                     </div>
@@ -203,7 +198,7 @@
                 </div>
 
                 <!-- /.box-header -->
-                <div class="card-body">
+                <div class="box-body">
                     <table id="dataform" class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -289,9 +284,8 @@
 
 {% block self_css_js %}
     <!-- DataTables -->
-    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
-
+    <script src="{% static 'plugins/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
 
     <script>
         // 高亮显示菜单
@@ -300,8 +294,8 @@
             showhide();
         }
         function showhide() {
-            $('#asset').addClass('menu-open');
-            $('#host-list').addClass('active')
+            $('#asset').addClass('active menu-open');
+            $('#asset-list').addClass('active')
         }
 
         // 初始化datatables

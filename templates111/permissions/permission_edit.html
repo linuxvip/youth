@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+$.ajaxSetup({
+　　data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+});
+
+{% block self_head_css_js %}
+    <script>
+        window.onload=init;
+        function init() {
+            showhide();
+        }
+        function showhide() {
+            $('#accounts').addClass('active menu-open')
+            $('#user-list').addClass('active')
+        }
+    </script>
+
+
+
+{% endblock %}
+
+
+{% block page_header %}
+    <!-- Content Header (内容header) -->
+    <section class="content-header">
+        <h1>
+            用户信息编辑
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">用户管理</a></li>
+            <li class="active">用户信息编辑</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">编辑用户信息</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <form class="form-horizontal" role="form" action={% url "accounts:user-edit" user.id %} method="POST">
+                {% csrf_token %}
+                          <div class="box-body">
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{{field.label}}</label>
+
+                            <div class="col-ms-10" style="margin-left: 10px;">
+                                {{field}}
+                            </div>
+                            <div class="col-ms-10" style="margin-left: 10px;">
+                                {{field.errors}}
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="{{ field.id }}">
+                    {% endfor %}
+                    <div class="form-group">
+                        <div class="box-footer" style="margin-left: 10px;width: 530px;">
+                            <button type="submit" class="btn btn-primary pull-left" style="width: 120px">更新信息</button>&nbsp;&nbsp;
+                            <a class="btn btn-danger" href="#" style="width: 120px" onclick="return confirm('确认重置密码？')">重置密码</a>
+                        </div>
+                    </div>
+                          </div>
+                </form>
+            </div>
+            <!-- /.box-body -->
+{#            <div class="box-footer">#}
+{#                <i class="fa fa-info-circle"></i> 请勿重复添加条目#}
+{#            </div>#}
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+
+
+{% endblock %}
+
+
+{% block link_js %}
+    <!-- 页面JS Start -->
+{#<!-- DataTables -->#}
+
+
+    <!-- 页面JS End -->
+{% endblock %}
