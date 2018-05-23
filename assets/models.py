@@ -66,7 +66,7 @@ class AssetGroup(models.Model):
 
 
 class Assets(models.Model):
-    hostname = models.CharField(u"主机名", max_length=50, unique=True)
+    hostname = models.CharField(u"主机名", max_length=50)
     ip = models.GenericIPAddressField(u"管理IP", max_length=15)
     other_ip = models.CharField(u"其它IP", max_length=100, null=True, blank=True)
     group = models.ForeignKey(AssetGroup, verbose_name=u"资产组", on_delete=models.SET_NULL, null=True, blank=True)
@@ -77,7 +77,7 @@ class Assets(models.Model):
     cpu_num = models.CharField(u"CPU数量", max_length=100, null=True, blank=True)
     memory = models.CharField(u"内存大小", max_length=30, null=True, blank=True)
     disk = models.CharField(u"硬盘信息", max_length=255, null=True, blank=True)
-    sn = models.CharField(u"SN号码", max_length=60, blank=True)
+    sn = models.CharField(u"SN号码", max_length=60, unique=True)
     usage = models.CharField(u"用途", max_length=100, null=True, blank=True)
     application = models.CharField(u"软件", max_length=100, null=True, blank=True)
     principal = models.CharField(u"负责人", max_length=50, null=True, blank=True)
