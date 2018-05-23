@@ -11,13 +11,14 @@ class IdcSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Idc
-        fields = (
-            'id',
-            'name',
-            'address',
-            'tel',
-            'contact',
-        )
+        # fields = (
+        #     'id',
+        #     'name',
+        #     'address',
+        #     'tel',
+        #     'contact',
+        # )
+        fields = '__all__'
 
 
 class AssetGroupSerializer(serializers.ModelSerializer):
@@ -28,34 +29,36 @@ class AssetGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AssetGroup
-        fields = (
-            'id',
-            'name',
-            'desc',
-        )
+        # fields = (
+        #     'id',
+        #     'name',
+        #     'desc',
+        # )
+        fields = '__all__'
 
 
 class AssetsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assets
-        fields = (
-            'id',
-            'hostname',
-            'ip',
-            'other_ip',
-            'asset_type',
-            'status',
-            'os',
-            'cpu_num',
-            'memory',
-            'disk',
-            'sn',
-            'usage',
-            'application',
-            'principal',
-            'jira',
-            'memo',
-            'group',
-            'idc',
-        )
+        # fields = (
+        #     'id',
+        #     'hostname',
+        #     'ip',
+        #     'other_ip',
+        #     'asset_type',
+        #     'status',
+        #     'os',
+        #     'cpu_num',
+        #     'memory',
+        #     'disk',
+        #     'sn',
+        #     'usage',
+        #     'application',
+        #     'principal',
+        #     'jira',
+        #     'memo',
+        #     'group',
+        #     'idc',
+        # )
+        fields = '__all__'
