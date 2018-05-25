@@ -25,9 +25,9 @@ ASSET_TYPE = (
 
 class Idc(models.Model):
     name = models.CharField(u"机房名称", max_length=30, null=True)
-    address = models.CharField(u"机房地址", max_length=100, null=True)
-    tel = models.CharField(u"机房电话", max_length=30, null=True)
-    contact = models.CharField(u"客户经理", max_length=30, null=True)
+    address = models.CharField(u"机房地址", max_length=100, null=True, blank=True)
+    tel = models.CharField(u"机房电话", max_length=30, null=True, blank=True)
+    contact = models.CharField(u"客户经理", max_length=30, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
