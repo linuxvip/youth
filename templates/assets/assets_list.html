@@ -258,7 +258,7 @@
                     {% if is_paginated %}
                         <ul class="pagination">
                         {% if page_obj.has_previous %}
-                            <li class="paginate_button"><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+                            <li class="paginate_button"><a href="?page={{ page_obj.previous_page_number }}&idc={{ idc_name }}&group={{ group_name }}&asset_type={{ assettype }}&status={{ status }}&keyword={{ keyword }}">上一页</a></li>
                         {% else %}
                             <li class="paginate_button disabled"><a href="">上一页</a></li>
                         {% endif %}
@@ -268,9 +268,10 @@
                             </li>
 
                             {% if page_obj.has_next %}
-                                <li class="paginate_button"><a href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+                                <li class="paginate_button"><a href="?page={{ page_obj.next_page_number }}&idc={{ idc_name }}&group={{ group_name }}&asset_type={{ assettype }}&status={{ status }}&keyword={{ keyword }}">下一页</a></li>
+
                             {% else %}
-                                <li class="paginate_button disabled"><a href="">下一页</a></li>
+                                <li class="paginate_button disabled"><a>下一页</a></li>
                             {% endif %}
                         </ul>
                     {% endif %}
@@ -332,7 +333,7 @@
 
     <script>
         $.ajaxSetup({
-            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
         });
         $(document).ready(function () {
             $(".delete").click(function () {
