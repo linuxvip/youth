@@ -5,7 +5,7 @@ coreschema==0.0.4
 Django==1.11.12
 django-crispy-forms==1.7.2
 #django-guardian==1.4.9
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 idna==2.6
 itypes==1.1.0
 Jinja2==2.10
