@@ -2,7 +2,7 @@ certifi==2018.4.16
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
-Django==1.11.12
+Django==2.2.24
 django-crispy-forms==1.7.2
 #django-guardian==1.4.9
 djangorestframework==3.8.2
